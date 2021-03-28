@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Container, Row, Col } from "reactstrap";
 import ProductCard from "../ProductCard";
 import Loader from "react-loader-spinner";
+import { fetchData } from "../../Util/ServerFunctions";
 import "./styles.css";
 
 const Home = () => {
@@ -11,8 +12,8 @@ const Home = () => {
 
   const fetchProductData = async () => {
     try {
-      const data = await fetch("https://i8u9f.sse.codesandbox.io/");
-      setProducts(await data.json());
+      setProducts(await fetchData());
+      console.log("yo", products);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -28,13 +29,7 @@ const Home = () => {
     return (
       <Container>
         <Row className="vh-100 justify-content-center align-items-center">
-          <Loader
-            type="Bars"
-            color="#00BFFF"
-            height={100}
-            width={100}
-            styles={{ margin: "auto auto" }}
-          />
+          <Loader type="Bars" color="#00BFFF" height={100} width={100} />
         </Row>
       </Container>
     );
@@ -50,7 +45,8 @@ const Home = () => {
         </Row>
         <Row className="align-item-center">
           {
-            products.map((product, id) => <ProductCard key={id} product={product}/>)
+            products.map((product, id) =>
+            <ProductCard key={id} product={product} />)
           }
         </Row>
       </Container>
