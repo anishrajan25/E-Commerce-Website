@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
 import ProductCard from "../ProductCard";
 
@@ -9,7 +10,9 @@ const Cart = () => {
       </Row>
       <Row>
         <Col className="text-right" xs="12">
-          <Button color="primary">Back To Product Page</Button>{" "}
+          <Link to="/">
+            <Button color="primary">Back To Product Page</Button>
+          </Link>{" "}
           <Button color="primary">Checkout</Button>
         </Col>
       </Row>

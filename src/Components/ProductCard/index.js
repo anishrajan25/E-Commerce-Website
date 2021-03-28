@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Row,
   Button,
@@ -14,7 +15,7 @@ import {
   ModalFooter
 } from "reactstrap";
 
-const ProductCard = ({quantity}) => {
+const ProductCard = ({ quantity }) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -31,9 +32,20 @@ const ProductCard = ({quantity}) => {
         <CardBody>
           <CardTitle tag="h5">Classic Hoodie</CardTitle>
           <CardText>Price: 5000</CardText>
-{ quantity ? <CardText>Quantity: {quantity} <Button color="info"> - </Button>{' '}<Button color="info">+</Button></CardText>  : null}
+          {quantity ? (
+            <CardText>
+              Quantity: {quantity} <Button color="info"> - </Button>{" "}
+              <Button color="info">+</Button>
+            </CardText>
+          ) : null}
           <Row className="align-items-center justify-content-around">
-            <Button color="primary">{quantity ? 'Delete' : 'Add To Cart'}</Button>
+            {quantity ? (
+              <Button color="primary">Delete</Button>
+            ) : (
+              <Link to="/cart">
+                <Button color="primary">Add to Cart</Button>
+              </Link>
+            )}
             <Button color="danger" onClick={toggle}>
               View Description
             </Button>

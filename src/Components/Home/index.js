@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button, Container, Row, Col } from "reactstrap";
 import ProductCard from "../ProductCard";
 import "./styles.css";
@@ -7,7 +8,9 @@ const Home = () => {
     <Container className="my-3">
       <Row>
         <Col className="text-right" xs="12">
-          <Button color="primary">Go To Cart..!</Button>
+          
+            <Link to="/cart"><Button color="primary">Go To Cart..!</Button></Link>
+          
         </Col>
       </Row>
       <Row className="align-item-center">
