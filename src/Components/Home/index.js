@@ -7,12 +7,16 @@ import "./styles.css";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
 
   const fetchProductData = async () => {
-    const data = await fetch("https://i8u9f.sse.codesandbox.io/");
-    console.log(await data.json());
-    setLoading(false);
+    try {
+      const data = await fetch("https://i8u9f.sse.codesandbox.io/");
+      setProducts(await data.json());
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -45,15 +49,9 @@ const Home = () => {
           </Col>
         </Row>
         <Row className="align-item-center">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {
+            products.map((product, id) => <ProductCard key={id} product={product}/>)
+          }
         </Row>
       </Container>
     );
