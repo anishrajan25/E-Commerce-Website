@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Row,
   Button,
@@ -6,29 +7,64 @@ import {
   CardImg,
   CardBody,
   CardTitle,
-  CardText} from "reactstrap";
-
+  CardText,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
+} from "reactstrap";
 
 const ProductCard = () => {
-return (
-  <Col md="4" className="my-3">
-          <Card>
-            <CardImg
-              top
-              width="100%"
-              src="https://reactstrap.github.io/assets/318x180.svg"
-              alt="Card image cap"
-            />
-            <CardBody>
-              <CardTitle tag="h5">Classic Hoodie</CardTitle>
-              <CardText>Price: 5000</CardText>
-              <Row className="align-items-center justify-content-around">
-              <Button color="primary">Add to Cart</Button><Button color="danger">View Description</Button>
-            </Row>
-            </CardBody>
-          </Card>
-        </Col>
-)
-}
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
+
+  return (
+    <Col md="4" className="my-3">
+      <Card>
+        <CardImg
+          top
+          width="100%"
+          src="https://reactstrap.github.io/assets/318x180.svg"
+          alt="Card image cap"
+        />
+        <CardBody>
+          <CardTitle tag="h5">Classic Hoodie</CardTitle>
+          <CardText>Price: 5000</CardText>
+          <Row className="align-items-center justify-content-around">
+            <Button color="primary">Add to Cart</Button>
+            <Button color="danger" onClick={toggle}>
+              View Description
+            </Button>
+
+            <Modal isOpen={modal} toggle={toggle}>
+              <ModalHeader toggle={toggle}>Product Description</ModalHeader>
+              <ModalBody>
+                <CardImg
+                  top
+                  width="100%"
+                  src="https://reactstrap.github.io/assets/318x180.svg"
+                  alt="Card image cap"
+                />
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onClick={toggle}>
+                  Add to Cart..!
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </Row>
+        </CardBody>
+      </Card>
+    </Col>
+  );
+};
 
 export default ProductCard;
