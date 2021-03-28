@@ -14,7 +14,7 @@ import {
   ModalFooter
 } from "reactstrap";
 
-const ProductCard = () => {
+const ProductCard = ({quantity}) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -31,8 +31,9 @@ const ProductCard = () => {
         <CardBody>
           <CardTitle tag="h5">Classic Hoodie</CardTitle>
           <CardText>Price: 5000</CardText>
+{ quantity ? <CardText>Quantity: {quantity} <Button color="info"> - </Button>{' '}<Button color="info">+</Button></CardText>  : null}
           <Row className="align-items-center justify-content-around">
-            <Button color="primary">Add to Cart</Button>
+            <Button color="primary">{quantity ? 'Delete' : 'Add To Cart'}</Button>
             <Button color="danger" onClick={toggle}>
               View Description
             </Button>
