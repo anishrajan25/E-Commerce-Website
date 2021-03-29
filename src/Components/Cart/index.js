@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
-import { fetchData } from "../../Util/ServerFunctions";
+import { baseUrlSB, fetchData } from "../../Util/ServerFunctions";
 import ProductCard from "../ProductCard";
 
 const Cart = () => {
@@ -15,6 +15,45 @@ const Cart = () => {
       setLoading(false);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const updateQuantity = async (id, val) => {
+    let response = await fetch(baseUrlSB + "cart", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ id, val })
+    });
+    let success = response.status === 200;
+
+    console.log("->", success, response.status);
+    if (success) {
+      console.log("deleting");
+      setCart(
+        cart.map((item, ind) => {
+          if (ind === id) item.quantity += val;
+          return item;
+        })
+      );
+    }
+  };
+
+  const deleteFromCart = async (id) => {
+    let response = await fetch(baseUrlSB + "cart", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ id: id })
+    });
+    let success = response.status === 200;
+
+    // console.log("->", success, response.status);
+    if (success) {
+      // console.log("deleting");
+      setCart(cart.filter((item, ind) => ind !== id));
     }
   };
 
@@ -53,7 +92,13 @@ const Cart = () => {
         </Row>
         <Row className="align-item-center">
           {cart.map((product, id) => (
-            <ProductCard key={id} product={product} />
+            <ProductCard
+              key={id}
+              deleteFromCart={deleteFromCart}
+              updateQuantity={updateQuantity}
+              id={id}
+              product={product}
+            />
           ))}
         </Row>
       </Container>

@@ -13,7 +13,6 @@ const Home = () => {
   const fetchProductData = async () => {
     try {
       setProducts(await fetchData());
-      console.log("yo", products);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -44,10 +43,9 @@ const Home = () => {
           </Col>
         </Row>
         <Row className="align-item-center">
-          {
-            products.map((product, id) =>
-            <ProductCard key={id} product={product} />)
-          }
+          {products.map((product, id) => (
+            <ProductCard key={id} id={id} product={product} />
+          ))}
         </Row>
       </Container>
     );
